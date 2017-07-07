@@ -184,8 +184,8 @@ var Building = function(data){
   self.location = ko.observable(data.location);
   self.address_street = ko.observable(data.address_street);
   self.address_city = ko.observable(data.address_city);
-  self.address_postal = ko.observable(data.address_postal)
-}
+  self.address_postal = ko.observable(data.address_postal);
+};
 
 //View Model
 var ViewModel = function() {
@@ -234,8 +234,8 @@ var ViewModel = function() {
      }
    }
    if (!result){
-     for (var k = 0; k < markers.length; k++) {
-        markers[k].setMap(map);
+     for (var n = 0; n < markers.length; n++) {
+        markers[n].setMap(map);
       }
       return self.buildingList();
    } else {
@@ -253,6 +253,28 @@ var ViewModel = function() {
   // Create a "highlighted location" marker color for when the user
   // mouses over the marker.
   var highlightedIcon = makeMarkerIcon('FFFF24');
+
+  //function that handles infowindow population when marker get clicked
+  var infoMarkerClick = function() {
+    populateInfoWindow(this, largeInfowindow);
+  };
+
+  //function that handles animation when mouse is on the marker
+  var animationMarkerClick = function() {
+    this.setIcon(highlightedIcon);
+    if (this.getAnimation() !== null) {
+      this.setAnimation(null);
+    } else {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  };
+  //function that stops animation when mouse is removed from marker
+  var animationStopMarkerClick = function() {
+    this.setIcon(defaultIcon);
+    if (this.getAnimation() !== null) {
+      this.setAnimation(null);
+    }
+  };
 
   // The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < Model.length; i++) {
@@ -277,30 +299,16 @@ var ViewModel = function() {
 
     // Push the marker to our array of markers.
     markers.push(marker);
-
     // Create an onclick event to open an infowindow at each marker.
-    marker.addListener('click', function() {
-      populateInfoWindow(this, largeInfowindow);
-    });
+    marker.addListener('click', infoMarkerClick);
 
     //Set marker animation when mouse points on marker
-    marker.addListener('mouseover',function() {
-      this.setIcon(highlightedIcon);
-      if (this.getAnimation() !== null) {
-        this.setAnimation(null);
-      } else {
-        this.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    });
+    marker.addListener('mouseover', animationMarkerClick);
 
     //Stop animation when mouse moves away from marker
-    marker.addListener('mouseout', function() {
-      this.setIcon(defaultIcon);
-      if (this.getAnimation() !== null) {
-        this.setAnimation(null);
-      }
-    });
+    marker.addListener('mouseout', animationStopMarkerClick);
   }
+
 
   // Event listener for show listing, click the show-listing button to call showListing function
   document.getElementById('show-listings').addEventListener('click', showListings);
@@ -345,7 +353,6 @@ var ViewModel = function() {
       infowindow.marker = marker;
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
-        console.log("markerclosed");
         infowindow.marker = null;
       });
 
@@ -363,7 +370,7 @@ var ViewModel = function() {
           success: function(response){
             //console.log(response);
   			    var link = response[3];
-  					if (link.length == 0) {
+  					if (link.length === 0) {
   					  link = "Not available";
   					}
             // Create a new streetview object, get image based on closest location to marker
