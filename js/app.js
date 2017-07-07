@@ -424,6 +424,7 @@ var ViewModel = function() {
     }
 
   // This function will loop through the markers array and display them all.
+  //Code from Udacity course gettng star with api
   function showListings() {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
@@ -438,6 +439,7 @@ var ViewModel = function() {
   }
 
   // This function will loop through the listings and hide them all.
+  //Code from Udacity course gettng star with api
   function hideListings() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
