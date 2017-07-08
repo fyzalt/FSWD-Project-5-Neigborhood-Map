@@ -52,6 +52,10 @@ var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
 
+function googleError() {
+	alert("Could not load Google Map. Please check console for details.");
+}
+
 function initMap() {
   // Create the style array, mapstyle available at https://snazzymaps.com/style/47/nature
   var styledMapType = new google.maps.StyledMapType(
@@ -179,6 +183,7 @@ function initMap() {
 }
 
 var Building = function(data){
+  //Since this data isn't refreshed dynamically/interactively, we can set these values to be static
   var self = this;
   self.title = ko.observable(data.title);
   self.location = ko.observable(data.location);
@@ -363,6 +368,10 @@ var ViewModel = function() {
 				infowindow.setContent('<div>Failed to get a response from Wikipedia</div>');
 				infowindow.open(map, marker);
 			}, 5000);
+
+      //Setup loading indicator when the marker gets clicked (suggested by udacity reviewer)
+      infowindow.setContent('Loading...');
+      infowindow.open(map, marker);
 
       $.ajax({
       		url: wikiUrl,
