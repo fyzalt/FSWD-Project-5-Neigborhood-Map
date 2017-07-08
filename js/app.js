@@ -316,12 +316,12 @@ var ViewModel = function() {
 
 
   // Event listener for show listing, click the show-listing button to call showListing function
-  document.getElementById('show-listings').addEventListener('click', showListings);
+  /*document.getElementById('show-listings').addEventListener('click', showListings);
 
   // Event listener for hide listing, click the hide-listing button to call hideListing function
   document.getElementById('hide-listings').addEventListener('click', function() {
     hideListings(markers);
-  });
+  });*/
 
   // This function takes in a COLOR, and then creates a new marker
   // icon of that color. The icon will be 21 px wide by 34 high, have an origin
@@ -434,7 +434,7 @@ var ViewModel = function() {
 
   // This function will loop through the markers array and display them all.
   //Code from Udacity course gettng star with api
-  function showListings() {
+  self.showListings = function(){
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers.length; i++) {
@@ -449,7 +449,7 @@ var ViewModel = function() {
 
   // This function will loop through the listings and hide them all.
   //Code from Udacity course gettng star with api
-  function hideListings() {
+  self.hideListings = function() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }

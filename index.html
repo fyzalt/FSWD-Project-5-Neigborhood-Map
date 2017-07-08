@@ -22,8 +22,8 @@
           <div class="dropdown-content">
               <div class="nav-heading">
                 <h4></h4>
-                <input class="button" id="show-listings" type="button" value="Show All Buildings">
-                <input class="button" id="hide-listings" type="button" value="Hide All Buildings">
+                <input data-bind="click: showListings" class="button" id="show-listings" type="button" value="Show All Buildings">
+                <input data-bind="click: hideListings" class="button" id="hide-listings" type="button" value="Hide All Buildings">
                 <hr>
                 <h4>Search Buildings</h4>
                 <input id="zoom-to-area-text" type="text" data-bind="textInput: userInput" placeholder="Enter your location here">
