@@ -213,7 +213,7 @@ var ViewModel = function() {
 				populateInfoWindow(markers[i], largeInfowindow);
 			}
       else{
-        markers[i].setMap(null);
+        markers[i].setMap(map);
       }
 		}
 	};
