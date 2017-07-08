@@ -436,7 +436,7 @@ var ViewModel = function() {
     if (map.getZoom() > 15) {
     map.setZoom(15);
     }
-  }
+  };
 
   // This function will loop through the listings and hide them all.
   //Code from Udacity course gettng star with api
@@ -444,5 +444,5 @@ var ViewModel = function() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
-  }
+  };
 };
