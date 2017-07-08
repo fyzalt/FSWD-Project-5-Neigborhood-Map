@@ -187,9 +187,9 @@ var Building = function(data){
   var self = this;
   self.title = ko.observable(data.title);
   self.location = ko.observable(data.location);
-  self.address_street = ko.observable(data.address_street);
-  self.address_city = ko.observable(data.address_city);
-  self.address_postal = ko.observable(data.address_postal);
+  self.address_street = data.address_street;
+  self.address_city = data.address_city;
+  self.address_postal = data.address_postal;
 };
 
 //View Model
@@ -313,15 +313,6 @@ var ViewModel = function() {
     //Stop animation when mouse moves away from marker
     marker.addListener('mouseout', animationStopMarkerClick);
   }
-
-
-  // Event listener for show listing, click the show-listing button to call showListing function
-  /*document.getElementById('show-listings').addEventListener('click', showListings);
-
-  // Event listener for hide listing, click the hide-listing button to call hideListing function
-  document.getElementById('hide-listings').addEventListener('click', function() {
-    hideListings(markers);
-  });*/
 
   // This function takes in a COLOR, and then creates a new marker
   // icon of that color. The icon will be 21 px wide by 34 high, have an origin
